@@ -1,0 +1,38 @@
+<template>
+<div>
+	<div class="spacer"
+	 :style="'height:'+data.height+'px'">
+		<!-- <div v-show="data.liners.indexOf('水平线')!==-1" class="liner"></div> -->
+	</div>
+</div>
+
+</template>
+
+<script>
+export default {
+	props:{
+		data:{
+			type:Object,
+		}
+	}
+}
+</script>
+
+<style lang="scss" scoped>
+.spacer{
+	position: relative;
+	.liner{
+		position: absolute;
+		top:50%;
+		left:0;
+		right: 0;
+		border-top:1px solid #000;
+	}
+}
+.top{
+	border-top:1px solid #000;
+}
+.bottom{
+	border-bottom: 1px solid #000;
+}
+</style>
