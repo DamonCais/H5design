@@ -17,7 +17,7 @@
 		>
 			<i v-show="del===i" @click="itemDel(i)" class="el-icon-error del"></i>
 			<div class="addimg" v-show="data.template!=='noimage'" >
-				<div class="icon" :style="'background-image:url('+item.imgsrc+')'">
+				<div class="icon" @click="imgChange(i)" :style="'background-image:url('+item.imgsrc+')'">
 					<i v-if="!item.imgsrc"  class="el-icon-plus"></i>
 					<h6 v-if="!item.imgsrc">添加图片</h6>
 					<h5 v-if="item.imgsrc">更换图片</h5>
@@ -41,13 +41,14 @@
 			<i class="el-icon-plus"></i>
 			<h6>添加一个图文导航</h6>
 		</div>
-		<imgsel v-model="dialogVisible"/>
+		<imgsel @imgsel="imgsel" :imgdata="imgdata" v-model="dialogVisible"/>
 	</div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import imgsel from '@/core/imgsel'
+import {doPost} from '@/api/api'
 export default {
 	props: {
 		data: {
@@ -64,7 +65,9 @@ export default {
 			},
 			dialogVisible:false,
 			selvalue:'beijing',
-			del:-1
+			del:-1,
+			imgdata:{},
+			sel:-1,
 		}
 	},
 	methods: {
@@ -78,6 +81,29 @@ export default {
 			this.data.items.push({
 				title:'',
 			})
+		},
+		imgChange(i){
+			this.sel=i;
+			this.getImg();
+		},
+		imgsel(val){
+			this.dialogVisible=false;
+			this.data.items[this.sel].imgsrc=this.imgdata.results[val].image.url;
+		},
+		getImg(){
+      let params={
+        filters:{archived:{
+          $ne:true
+        }},
+        page:1,
+        pageSize:20,
+        sort:'-createdAt',
+        storeId:'57d7703f8a2848bc5f150e06'
+      }
+      doPost('/StoreMedia.find',params).then(res=>{
+				this.imgdata=res;
+				this.dialogVisible=true;
+      })
 		}
 	},
 	components:{

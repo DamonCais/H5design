@@ -2,9 +2,10 @@
 	<div >
 		<section v-if="hasimage" class="navgroup">
 			<div class="imgs" v-for="(item,index) in data.items" :key="index">
-				<div v-if="index!==0" class="img" :style="'background-image:url('+item.imgsrc+')'">
+				<div  class="img" :style="'background-image:url('+item.imgsrc+')'">
+					<img v-if="index===0" :src="item.imgsrc" alt="">
 				</div>
-				<img v-else :src="item.imgsrc" alt="">
+				
 			</div>
 		</section>
 		<section  v-if="hastext" class="navgroup">

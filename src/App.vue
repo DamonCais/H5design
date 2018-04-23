@@ -1,26 +1,29 @@
 <template>
-	<div class="contain" @click="outEdit">
-		<div class="app-preview" @click.stop="{}">
-			<header class="header">
-				<h1>这里是标题{{sel}}</h1>
+	<div class="contain">
+		<div class="app-preview"
+		:style="'background-color:'+h5datas[0].data.color">
+			<header class="header" 
+			@click="sel=0"
+			>
+				<h1>{{h5datas[0].data.title}}{{sel}}</h1>
 			</header>
 			<div class="prelist">
 				<!-- <test/> -->
 				<draggable :options="dragOptions" v-model="h5datas" :move="getdata" @update="datadragEnd">
 					<transition-group>
 						<div ref="pre" class="pre" v-for="(pre,index) in h5datas" :key="index" v-if="index"  @click="getSel(index)">
-							<preview :data="pre.data" :onEdit="sel===index&&!pre.bugFix" :type="pre.type" :css="pre.css" />
-							<span @click.stop="del" v-show="sel===index&&!pre.bugFix" class="del">删除</span>
-							<span @click="push" v-show="sel===index&&!pre.bugFix" class="add push"><i class="el-icon-circle-plus"></i></span>
-							<span @click="insert" v-show="sel===index&&!pre.bugFix" class="add insert"><i class="el-icon-circle-plus"></i></span>
+							<preview :data="pre.data" :onEdit="sel===index" :type="pre.type" :css="pre.css" />
+							<span @click.stop="del" v-show="sel===index" class="del">删除</span>
+							<span @click="push" v-show="sel===index" class="add push"><i class="el-icon-circle-plus"></i></span>
+							<span @click="insert" v-show="sel===index" class="add insert"><i class="el-icon-circle-plus"></i></span>
 						</div>
 					</transition-group>
 				</draggable>
 				<editor :style="'top:'+editOffset+'px'" ref="editor" class="editor" :data="h5datas[sel].data" :type="h5datas[sel].type" />
 			</div>
 			<div class="btns">
-				<span v-for="(btn,index) in btns"   :key="index">
-								<el-button size="mini" type="primary" @click="edit(btn)">{{btn}}</el-button>
+				<span v-for="(btn,index) in btns" :key="index">
+						<el-button size="mini" type="primary" @click="edit(btn)">{{btn}}</el-button>
 				</span>
 			</div>
 		</div>
@@ -31,7 +34,7 @@
 			center>
 			<div class="btns">
 				<span v-for="(btn,index) in btns"   :key="index">
-						<el-button size="mini" type="primary" @click="centerDialogVisible = false">{{btn}}</el-button>
+						<el-button size="mini" type="primary" @click="selbtn(btn)">{{btn}}</el-button>
 				</span>
 			</div>
 		</el-dialog>
@@ -43,9 +46,11 @@ import preview from "./components/preview"
 import draggable from 'vuedraggable'
 import editor from './components/editor'
 import test from './preview/product'
+import {createObjByBtn} from './utils/btn'
 export default {
 	data() {
 		return {
+			btnType:'edit',
 			centerDialogVisible:false,
 			dragOptions: {
 				animation: 120,
@@ -53,8 +58,11 @@ export default {
 				group: 'sortlist',
 				ghostClass: 'ghost-style'
 			},
-			btns: ['富文本', '轮播图', '表头', '商品', '广告'],
-			h5datas: [{data:{},type:''}, {
+			btns: ['导航栏', '轮播图', '标题', '导航条', '商品','留空'],
+			h5datas: [{data:{
+				title:'店铺主页',
+				color:'#eee'
+			},type:'header'}, {
 					type: 'navgroup',
 					data: {
 						template:'default',
@@ -125,47 +133,50 @@ export default {
 					type: 'spacer',
 					data: {
 						height: 30,
-						color:'#fff'
+						color:'#ddd'
 					}
 				}
 			],
 			sel: 0,
-			editOffset: 0
+			editOffset: -50
 		}
 	},
 	methods: {
-		outEdit(e){
-			// this.sel=0;
+		selbtn(btn){
+			this.centerDialogVisible = false;
+			let obj = createObjByBtn(btn);
+			switch(this.btnType){
+				case 'edit':
+					this.h5datas.push(obj);
+					this.sel=this.h5datas.length-1;
+					break;
+				case 'insert':
+					this.h5datas.splice(this.sel,0,obj);
+					break;
+				case 'push':
+					this.h5datas.splice(this.sel+1,0,obj);
+					this.sel=this.sel+1;
+					break;
+			}
+			this.btnType='edit';
 		},
 		getSel(index) {
-			// if (this.h5datas.length === index + 1) {
-			// 	return
-			// }
 			this.sel = index;
 		},
 		edit(btn) {
-			let index = 0;
-			if (this.h5datas.length > 1) {
-				index = this.sel + 1;
-			}
-			switch (btn) {
-				case '表头': this.h5datas.splice(index, 0, {
-					type: 'cell',
-					data: {},
-					css: [],
-				});break;
-				case '广告': console.log(this.h5datas);
-			}
+			this.btnType='edit';
+			this.selbtn(btn);
 		},
 		del() {
-
 			this.h5datas.splice(this.sel, 1);
-				this.sel = 0;
+			this.sel = this.sel-1;
 		},
 		push(){
+			this.btnType='push';
 			this.centerDialogVisible=true;
 		},
 		insert(){
+			this.btnType='insert';
 			this.centerDialogVisible = true;
 		},
 		getdata(evt) {
@@ -177,8 +188,14 @@ export default {
 	},
 	watch: {
 		sel(val) {
-			if(!val)return;
-			this.editOffset = this.$refs.pre[val-1].offsetTop;
+			if(!val){
+				this.editOffset = this.$refs.pre[0].offsetTop-50;
+				return;
+			}
+			setTimeout(() => {
+				this.editOffset = this.$refs.pre[val-1].offsetTop;
+			}, 20);
+			
 		}
 	},
 	components: {
@@ -208,6 +225,7 @@ export default {
       height: 50px;
       color: #fff;
       position: relative;
+			cursor: pointer;
       h1 {
         position: absolute;
         bottom: 0;

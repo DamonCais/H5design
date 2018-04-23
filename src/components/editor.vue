@@ -18,6 +18,7 @@ import swiperEditor from '@/edit/swiperEditor'
 import spacerEditor from '@/edit/spacerEditor'
 import productEditor from '@/edit/productEditor'
 import navgroupEditor from '@/edit/navgroupEditor'
+import headerEditor from '@/edit/headerEditor'
 export default {
 	props:{
 		data:{
@@ -43,6 +44,7 @@ export default {
 				case 'swiper': title='轮播图';break;
 				case 'celltitle': title='标题';break;
 				case 'navgroup': title='导航列表';break;
+				case 'header': title='主页标题';break;
 
 			}
 			return title;
@@ -54,7 +56,8 @@ export default {
 		productEditor,
 		swiperEditor,
 		navgroupEditor,
-		celltitleEditor
+		celltitleEditor,
+		headerEditor
 	}
 }
 </script>
