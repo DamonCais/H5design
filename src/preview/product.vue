@@ -61,11 +61,17 @@ export default {
 	}
 }
 .onebig{
-	:first-child{
-		flex-basis: 100%;
+	// :first-child{
+	// 	flex-basis: 100%;
+	// }
+	// :not(:first-child){
+	// 	flex-basis:50%;
+	// }
+	:nth-child(n){
+		flex-basis: 50%;
 	}
-	:not(:first-child){
-		flex-basis:50%;
+	:nth-child(3n+1){
+		flex-basis: 100%;
 	}
 }
 .list{

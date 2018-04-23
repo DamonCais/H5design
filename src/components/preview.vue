@@ -1,11 +1,12 @@
 <template>
 	<div class="preview">
-		<product :class="{'onedit':onEdit}" :data="data" v-if="type==='product'"/>
+		<component :class="{'onedit':onEdit}" :data="data" v-bind:is="type"></component>
+		<!-- <product :class="{'onedit':onEdit}" :data="data" v-if="type==='product'"/>
 		<celltitle :class="{'onedit':onEdit}" :data="data" v-if="type==='title'"/>
 		<spacer :class="{'onedit':onEdit}" :data="data" v-if="type==='spacer'"/>
 		<navgroup :class="{'onedit':onEdit}" :data="data" v-if="type==='navgroup'"/>
 		<cell :class="{'onedit':onEdit}" :data="data" v-if="type==='cell'"/>
-		<swiper :class="{'onedit':onEdit}" :onEdit="onEdit" :data="data" v-if="type==='swiper'"/>
+		<swiper :class="{'onedit':onEdit}" :data="data" v-if="type==='swiper'"/> -->
 	</div>
 </template>
 
@@ -38,7 +39,7 @@ export default {
 		onEdit:{
 			type:Boolean,
 		}
-	}
+	},
 }
 </script>
 

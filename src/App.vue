@@ -54,7 +54,20 @@ export default {
 				ghostClass: 'ghost-style'
 			},
 			btns: ['富文本', '轮播图', '表头', '商品', '广告'],
-			h5datas: [{data:{},type:''},
+			h5datas: [{data:{},type:''}, {
+					type: 'navgroup',
+					data: {
+						template:'default',
+						items: [
+							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: '所发生的浪费时间了' },
+							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
+						]
+					}
+				},
+			
 			{
 				type:'product',
 
@@ -80,7 +93,7 @@ export default {
 				}
 			},
 			{
-				type:'title',
+				type:'celltitle',
 				data:{
 					title:'title很长很长水水水水水所发生的浪费时间了的房间里的数据分类世界的理解',
 					subtitle:'subtitle长很长水水水水水所发生的浪费时间了水水所发生的浪费时间了水水所发生的浪费时间了水水所发生的浪费时间了的房间里的数据分类世界的理解',
@@ -109,21 +122,10 @@ export default {
 						]
 					}
 				}, {
-					type: 'navgroup',
-					data: {
-						template:'default',
-						items: [
-							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
-							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
-							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
-							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: '所发生的浪费时间了' },
-							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
-						]
-					}
-				}, {
 					type: 'spacer',
 					data: {
 						height: 30,
+						color:'#fff'
 					}
 				}
 			],
@@ -193,12 +195,14 @@ export default {
   width: 1000px;
   margin: 0 auto;
   min-height: 300px;
-  background: #eee;
+  background: #fff;
   padding: 20px;
+	box-shadow: 0 0 1px 0 rgba(0,0,0,.2);
   .app-preview {
     border: 1px solid #000;
     width: 320px;
     min-height: 600px;
+		margin-bottom: 300px;
     .header {
       background: #000;
       height: 50px;
@@ -223,7 +227,6 @@ export default {
         position: absolute;
         left: 104%;
         top: 0;
-				background:white;
       }
       .pre {
         position: relative;

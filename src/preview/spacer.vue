@@ -1,7 +1,7 @@
 <template>
 <div>
 	<div class="spacer"
-	 :style="'height:'+data.height+'px'">
+	 :style="'height:'+data.height+'px;background-color:'+data.color">
 		<!-- <div v-show="data.liners.indexOf('水平线')!==-1" class="liner"></div> -->
 	</div>
 </div>
@@ -20,6 +20,8 @@ export default {
 
 <style lang="scss" scoped>
 .spacer{
+			background: #f8f8f8;
+
 	position: relative;
 	.liner{
 		position: absolute;

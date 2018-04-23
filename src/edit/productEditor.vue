@@ -60,3 +60,15 @@
 }
 
 </style>
+<style>
+
+
+.el-radio+.el-radio{
+	margin:0;
+		margin-right:30px;
+}
+.el-radio{
+	margin-right:30px;
+	margin-bottom: 5px;
+}
+</style>
