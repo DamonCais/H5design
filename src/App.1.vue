@@ -62,7 +62,80 @@ export default {
 			h5datas: [{data:{
 				title:'店铺主页',
 				color:'#eee'
-			},type:'header'}
+			},type:'header'}, {
+					type: 'navgroup',
+					data: {
+						template:'default',
+						items: [
+							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: 'title1' },
+							{ imgsrc: "http://cdn.iciba.com/news/word/big_20180417b.jpg", title: '所发生的浪费时间了' },
+							{ imgsrc: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg", title: 'title1' },
+						]
+					}
+				},
+			
+			{
+				type:'product',
+
+				data:{
+					css:{
+						fillType:'nospace',
+						listStyle:'double'
+					},
+					items:[
+						{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
+							title:'商品一',
+							price:'5.00'},
+												{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
+							title:'商品一',
+							price:'5.00'},
+												{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
+							title:'商品一',
+							price:'5.00'},
+												{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
+							title:'商品一',
+							price:'5.00'}
+					]
+				}
+			},
+			{
+				type:'celltitle',
+				data:{
+					title:'title很长很长水水水水水所发生的浪费时间了的房间里的数据分类世界的理解',
+					subtitle:'subtitle长很长水水水水水所发生的浪费时间了水水所发生的浪费时间了水水所发生的浪费时间了水水所发生的浪费时间了的房间里的数据分类世界的理解',
+					islink:true
+				}
+			},
+				{
+					type: 'cell',
+					data: {
+						left: 'left',
+						center: 'center',
+						right: 'right',
+						islink: true
+					}
+				}, {
+					type: 'swiper',
+					data: {
+					css:{
+						fillType:'nospace',
+						listStyle:'double'
+					},
+						items: [
+							{ imgsrc: 'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg', title: 'title1' },
+							{ imgsrc: 'http://cdn.iciba.com/news/word/big_20180417b.jpg', title: 'title2' },
+							{ imgsrc: 'http://cdn.iciba.com/news/word/big_201804-16b.jpg', title: 'title3' }
+						]
+					}
+				}, {
+					type: 'spacer',
+					data: {
+						height: 30,
+						color:'#ddd'
+					}
+				}
 			],
 			sel: 0,
 			editOffset: -50

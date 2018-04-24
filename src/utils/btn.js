@@ -53,15 +53,6 @@ export function createObjByBtn(btn) {
 						listStyle:'double'
 					},
 					items:[
-						{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
-							title:'商品一',
-							price:'5.00'},
-												{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
-							title:'商品二',
-							price:'5.00'},
-												{imgsrc:'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
-							title:'商品三',
-							price:'5.00'},
 					]
 				}
 		};break;

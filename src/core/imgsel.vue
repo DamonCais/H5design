@@ -3,12 +3,20 @@
 	<div>
 		<el-dialog class="dialog" title="选择图片" :visible.sync="show" width="50%">
 			<ul class="content">
-				<li v-for="(item,i) in imgdata.results" :key="i" class="item" :class="{'active':i===sel}">
+				<li v-for="(item,i) in imgdata" :key="i" class="item" :class="{'active':i===sel}">
 					<div class="img">
 						<img @click="sel=sel===i?-1:i" :src="item.image.url" alt="">
 					</div>
 				</li>
 			</ul>
+		<el-pagination
+			class="pagination"
+			@current-change="handleCurrentChange"
+			layout="prev, pager, next"
+			:current-page.sync="pagination.currentPage"
+			:total="pagination.total">
+		</el-pagination>
+			<div class="clearfix"></div>
 			<el-button class="btn" @click="imgsel">确定</el-button>
 			<div class="clearfix"></div>
 		</el-dialog>
@@ -20,7 +28,10 @@ export default {
 	props: {
 		value: Boolean,
 		imgdata: {
-			type: Object,
+			type: Array,
+		},
+		pagination:{
+			type:Object,
 		}
 	},
 	data() {
@@ -33,6 +44,9 @@ export default {
 	methods:{
 		imgsel(){
 			this.$emit('imgsel',this.sel);
+		},
+		handleCurrentChange(val){
+			this.$emit('pageChange',val);
 		}
 	},
 	watch: {
@@ -79,7 +93,12 @@ export default {
       }
     }
   }
+	.pagination{
+		margin:5px 0;
+		float: right;
+	}
 	.btn{
+				margin:5px 0;
 		float:right;
 	}
 	.clearfix{

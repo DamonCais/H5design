@@ -2,10 +2,10 @@ import axios from 'axios';
 // 创建axios实例
 // axios.defaults.withCredentials = true;
 const service = axios.create({
-  // baseURL: 'https://master-dev.guzzu.cn/suapi/2',
-  baseURL: 'https://mp-dev.guzzu.cn/mpapi/2',
+  baseURL: 'http://localhost:3000/backapi',
+  // baseURL: 'https://mp-dev.guzzu.cn/mpapi/2',
   timeout: 15000, // 请求超时时间
-  withCredentials: true
+  // withCredentials: true
 
 });
 
@@ -22,10 +22,8 @@ const service = axios.create({
 // // respone拦截器
 service.interceptors.response.use(
   response => {
-
-    const res = response.data;
-
-    return res;
+    // const res = response.data;
+    return response;
   },
   error => {
     console.log(error);
