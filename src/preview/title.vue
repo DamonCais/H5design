@@ -1,8 +1,8 @@
 <template>
 	<div class="title">
-		<h4>{{data.title}}</h4>
-		<h5>{{data.subtitle}}</h5>
-		<span v-show="data.islink" class="link">
+		<h4>{{block.items[0].title[editlang]}}</h4>
+		<h5>{{block.items[0].subtitle[editlang]}}</h5>
+		<span v-show="block.items[0].linkType" class="link">
 			<i class="el-icon-arrow-right"></i>
 		</span>
 	</div>
@@ -11,7 +11,7 @@
 <script>
 export default {
 	props: {
-		data: {
+		block: {
 			type: Object,
 		},
 	},

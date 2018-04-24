@@ -1,15 +1,15 @@
 <template>
 	<div class="cell">
-		<div class="left">{{data.left}} </div>
+		<div class="left">{{block.left}} </div>
 		<div class="right">
-			{{data.right}}
+			{{block.right}}
 		</div>
 				<div class="center">
 			<span>
-				{{data.center}}
+				{{block.center}}
 			</span>
 			</div>
-		<span class="islink" v-if="data.islink">
+		<span class="islink" v-if="block.islink">
 			<i class="el-icon-arrow-right"></i>
 		</span>
 	</div>
@@ -18,7 +18,7 @@
 <script>
 export default {
 	props:{
-		data:{
+		block:{
 			type:Object,
 		},
 	},

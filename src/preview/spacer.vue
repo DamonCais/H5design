@@ -1,7 +1,7 @@
 <template>
 <div>
 	<div class="spacer"
-	 :style="'height:'+data.height+'px;background-color:'+data.color">
+	 :style="'height:'+block.height+'px;background-color:'+block.color">
 		<!-- <div v-show="data.liners.indexOf('水平线')!==-1" class="liner"></div> -->
 	</div>
 </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
 	props:{
-		data:{
+		block:{
 			type:Object,
 		}
 	}

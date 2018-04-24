@@ -1,12 +1,6 @@
 <template>
 	<div class="preview">
-		<component :class="{'onedit':onEdit}" :data="data" v-bind:is="type"></component>
-		<!-- <product :class="{'onedit':onEdit}" :data="data" v-if="type==='product'"/>
-		<celltitle :class="{'onedit':onEdit}" :data="data" v-if="type==='title'"/>
-		<spacer :class="{'onedit':onEdit}" :data="data" v-if="type==='spacer'"/>
-		<navgroup :class="{'onedit':onEdit}" :data="data" v-if="type==='navgroup'"/>
-		<cell :class="{'onedit':onEdit}" :data="data" v-if="type==='cell'"/>
-		<swiper :class="{'onedit':onEdit}" :data="data" v-if="type==='swiper'"/> -->
+		<component :class="{'onedit':onEdit}" :block="block" v-bind:is="block.type|titlefilter"></component>
 	</div>
 </template>
 
@@ -18,37 +12,38 @@ import navgroup from '@/preview/navgroup'
 import celltitle from '@/preview/title'
 import product from '@/preview/product'
 export default {
-	components:{
+	components: {
 		cell,
-		swiper,
+		banner: swiper,
 		spacer,
 		navgroup,
 		celltitle,
-		product
+		productgroup: product
 	},
-	props:{
-		data:{
-			type:Object,
+	props: {
+		block: {
+			type: Object,
 		},
-		type:{
-			type:String,
-		},
-		css:{
-			type:Array,
-		},
-		onEdit:{
-			type:Boolean,
+		onEdit: {
+			type: Boolean,
 		}
 	},
+	filters: {
+		titlefilter(val) {
+			if (val === 'title') {
+				return 'celltitle'
+			}
+			return val;
+		}
+	}
 }
 </script>
 
 <style lang="scss" scoped>
-.preview{
-	width:100%;
-	.onedit{
-		border:1px dashed red;
-	}
+.preview {
+  width: 100%;
+  .onedit {
+    border: 1px dashed red;
+  }
 }
-
 </style>

@@ -1,50 +1,30 @@
 <template>
 	<div class="carousel-wrap" id="carousel">
-		<img style="width:100%;z-index:-1;opacity:0" :src="slideList[0].image" alt="">
+		<img style="width:100%;z-index:-1;opacity:0" :src="_(block.items[0],'image.url')" alt="">
 		<transition-group tag="ul" class='slide-ul' name="list">
-			<li v-for="(item,index) in data.items" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
-				<!-- <a :href="list.clickUrl"> -->
-					<!-- <img :src="item.imgsrc" :alt="item.title"> -->
-				<div  :class="data.css.fillType" :style="'background-image:url('+item.imgsrc+')'">
+			<li v-for="(item,index) in block.items" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
+				<div :class="block.template" :style="'background-image:url('+_(item,'image.url')+')'">
 				</div>
-				<!-- </a> -->
 			</li>
 		</transition-group>
 		<div class="carousel-items">
-			<span v-for="(item,index) in slideList.length" :key="index" :class="{'active':index===currentIndex}" @mouseover="change(index)"></span>
+			<span v-for="(item,index) in block.items.length" :key="index" :class="{'active':index===currentIndex}" @mouseover="change(index)"></span>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-		props:{
-			data:{
-				type:Object,
-			}
-		},
+	props: {
+		block: {
+			type: Object,
+		}
+	},
 	data() {
 		return {
-			slideList: [
-				{
-					"clickUrl": "#",
-					"desc": "nhwc",
-					"image": "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg"
-				},
-				{
-					"clickUrl": "#",
-					"desc": "hxrj",
-					"image": "http://cdn.iciba.com/news/word/big_20180417b.jpg"
-				},
-				{
-					"clickUrl": "#",
-					"desc": "rsdh",
-					"image": "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg"
-				}
-			],
 			currentIndex: 0,
 			timer: ''
-		}	
+		}
 	},
 	methods: {
 		go() {
@@ -61,7 +41,7 @@ export default {
 		},
 		autoPlay() {
 			this.currentIndex++
-			if (this.currentIndex > this.slideList.length - 1) {
+			if (this.currentIndex > this.block.items.length - 1) {
 				this.currentIndex = 0
 			}
 		}
@@ -90,30 +70,33 @@ export default {
   width: 100%;
   height: 100%;
   li {
-		top:0;
+    top: 0;
     position: absolute;
     width: 100%;
     height: 100%;
-		display: flex;
-			align-items:center;/*指定垂直居中*/
-    img {
+    display: flex;
+    align-items: center; /*指定垂直居中*/
+    .swiper {
       width: 100%;
-      // height: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
-		.nospace{
-			width:100%;
-			height: 100%;
-			background-size:cover;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
-		.haspace{
-			width:100%;
-			height: 100%;
-			background-size:100%;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
+    .nospace {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .haspace {
+      width: 100%;
+      height: 100%;
+      background-size: 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
   }
 }
 
@@ -129,8 +112,8 @@ export default {
     display: inline-block;
     height: 6px;
     // width: 30px;
-		width:6px;
-		border-radius: 50%;
+    width: 6px;
+    border-radius: 50%;
     margin: 0 3px;
     background-color: #b2b2b2;
     cursor: pointer;

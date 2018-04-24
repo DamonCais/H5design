@@ -2,16 +2,16 @@
 	<div>
 		<el-form ref="form" class="form" :model="form" label-width="80px">
 			<el-form-item label="左边内容">
-				<el-input v-model="data.left"></el-input>
+				<el-input v-model="block.left"></el-input>
 			</el-form-item>
 			<el-form-item label="中间内容">
-				<el-input v-model="data.center"></el-input>
+				<el-input v-model="block.center"></el-input>
 			</el-form-item>
 			<el-form-item label="右边内容">
-				<el-input v-model="data.right"></el-input>
+				<el-input v-model="block.right"></el-input>
 			</el-form-item>
 			<el-form-item label="显示箭头">
-				<el-switch v-model="data.islink"></el-switch>
+				<el-switch v-model="block.islink"></el-switch>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -20,7 +20,7 @@
 <script>
   export default {
 		props:{
-			data:{
+			block:{
 				type:Object,
 			}
 		},

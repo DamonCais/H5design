@@ -10,13 +10,16 @@ import "./css/reset.scss"
 import "./css/mystyle.scss"
 Vue.config.productionTip = false
 
+import store from './store';
 
+import '@/mixin'
 Vue.use(ElementUI);
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    store,
+    router,
+    components: { App },
+    template: '<App/>'
 })

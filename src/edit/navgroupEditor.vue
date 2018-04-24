@@ -2,34 +2,30 @@
 	<div class="navgrounp">
 		<el-form ref="form" class="form" label-width="80px">
 			<el-form-item label="填充方式">
-				<el-radio-group v-model="data.template">
-					<el-radio label="default">默认</el-radio>
-					<el-radio label="notext">仅图片</el-radio>
-					<el-radio label="noimage">仅文字</el-radio>
+				<el-radio-group v-model="block.template">
+					<el-radio label="image-text">默认</el-radio>
+					<el-radio label="image-only">仅图片</el-radio>
+					<el-radio label="text-only">仅文字</el-radio>
 				</el-radio-group>
 			</el-form-item>
 		</el-form>
-		<draggable :options="dragOptions" v-model="data.items">
+		<draggable :options="dragOptions" v-model="block.items">
 			<transition-group>
-				<div @mouseover="del=i" @mouseout="del=-1" v-for="(item,i) in data.items" :key="i" class="imgform" :class="{'noimg':data.template==='noimage'}">
+				<div @mouseover="del=i" @mouseout="del=-1" v-for="(item,i) in block.items" :key="i" class="imgform" :class="{'text-only':block.template==='text-only'}">
 					<i v-show="del===i" @click="itemDel(i)" class="el-icon-error del"></i>
-					<div class="addimg" v-show="data.template!=='noimage'">
-						<div class="icon" @click="imgChange(i)" :style="'background-image:url('+item.imgsrc+')'">
-							<i v-if="!item.imgsrc" class="el-icon-plus"></i>
-							<h6 v-if="!item.imgsrc">添加图片</h6>
-							<h5 v-if="item.imgsrc">更换图片</h5>
+					<div class="addimg" v-show="block.template!=='text-only'">
+						<div class="icon" @click="imgChange(i)" :style="'background-image:url('+_(item,'image.url')+')'">
+							<i v-if="!item.image.url" class="el-icon-plus"></i>
+							<h6 v-if="!item.image.url">添加图片</h6>
+							<h5 v-if="item.image.url">更换图片</h5>
 						</div>
 					</div>
-					<div class="row" v-show="data.template!=='notext'">
+					<div class="row" v-show="block.template!=='image-only'">
 						<label for="">标题</label>
-						<input v-model="item.title" type="text">
+						<input v-model="item.title[editlang]" type="text">
 					</div>
 					<div class="row">
-						<label for="">链接</label>
-						<el-select size="small" v-model="selvalue" placeholder="请选择">
-							<el-option label="区域一" value="shanghai"></el-option>
-							<el-option label="区域二" value="beijing"></el-option>
-						</el-select>
+						<linktype :item="item" />
 					</div>
 				</div>
 			</transition-group>
@@ -45,10 +41,11 @@
 <script>
 import draggable from 'vuedraggable'
 import imgsel from '@/core/imgsel'
+import linktype from '@/core/linktype'
 import { doPost, doGet } from '@/api/api'
 export default {
 	props: {
-		data: {
+		block: {
 			type: Object,
 		}
 	},
@@ -72,15 +69,19 @@ export default {
 		}
 	},
 	methods: {
+		linkType(linktype) {
+			console.log(linktype);
+		},
 		onSubmit() {
 			console.log('submit!');
 		},
 		itemDel(i) {
-			this.data.items.splice(i, 1);
+			this.block.items.splice(i, 1);
 		},
 		itemAdd() {
-			this.data.items.push({
+			this.block.items.push({
 				title: '',
+				image: {},
 			})
 		},
 		imgChange(i) {
@@ -88,17 +89,20 @@ export default {
 			this.getImg();
 		},
 		imgsel(val) {
+			if (val === -1) {
+				return;
+			}
 			this.dialogVisible = false;
-			let item = this.data.items[this.sel];
-			item.imgsrc =  this.imgdata[val].image.url;
-			this.data.items.splice(this.sel,1,item);
-			// this.data.items[this.sel].imgsrc = this.imgdata[val].image.url;
+			let item = this.block.items[this.sel];
+			item.image = this.imgdata[val].image;
+			this.block.items.splice(this.sel, 1, item);
+			// this.block.items[this.sel].imgsrc = this.imgdata[val].image.url;
 		},
 		getImg() {
 			this.imgdata = [];
 			doGet('/shopping-mall-medias', { p: this.pagination.currentPage - 1 }).then(res => {
 				console.log(res);
-				this.pagination.total= parseInt(res.headers['x-total-count']);
+				this.pagination.total = parseInt(res.headers['x-total-count']);
 				this.imgdata = res.data;
 				this.dialogVisible = true;
 			})
@@ -110,7 +114,8 @@ export default {
 	},
 	components: {
 		imgsel,
-		draggable
+		draggable,
+		linktype
 	}
 }
 </script>
@@ -166,6 +171,10 @@ export default {
     }
     .row {
       padding: 0 10px;
+      min-height: 20px;
+      label {
+        margin-right: 5px;
+      }
       input {
         width: 195px;
       }
@@ -181,7 +190,7 @@ export default {
       margin: 0;
     }
   }
-  .noimg {
+  .text-only {
     padding: 10px;
   }
   .additem {
