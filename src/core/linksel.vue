@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-dialog class="dialog" :title="title" :visible.sync="show" width="70%">
+		<el-dialog class="dialog" title="选择商品" :visible.sync="show" width="70%">
 			<el-table ref="multipleTable" class="table" :data="gridData" height="500" @select-all="handleSelectionChange" @select="handleSelectionChange">
 
 				<el-table-column width="55" v-if="!multi" fixed>
@@ -25,7 +25,7 @@
 			<el-pagination class="pagination" @current-change="handleCurrentChange" layout="prev, pager, next" :current-page.sync="pagination.currentPage" :total="pagination.total">
 			</el-pagination>
 			<div class="clearfix"></div>
-			<el-button class="btn" @click="productsel">确定</el-button>
+			<el-button class="btn" @click="linksel">确定</el-button>
 			<div class="clearfix"></div>
 		</el-dialog>
 	</div>
@@ -36,7 +36,6 @@ export default {
 	props: {
 		value: Boolean,
 		multi: Boolean,
-		title: String,
 		gridData: {
 			type: Array,
 		},
@@ -62,11 +61,11 @@ export default {
 		}
 	},
 	methods: {
-		productsel() {
+		linksel() {
 			if (!this.multi) {
 				this.multipleSelection[0] = this.picked;
 			}
-			this.$emit('productsel', this.multipleSelection);
+			this.$emit('linksel', this.multipleSelection);
 		},
 		handleSelectionChange(val) {
 			this.multipleSelection = val;

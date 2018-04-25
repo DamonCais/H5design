@@ -80,8 +80,13 @@ export default {
 		},
 		itemAdd() {
 			this.block.items.push({
-				title: '',
-				image: {},
+				image: {
+					url: "https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp"
+				},
+				title: {
+					zh: "",
+					en: ""
+				}
 			})
 		},
 		imgChange(i) {
@@ -100,7 +105,7 @@ export default {
 		},
 		getImg() {
 			this.imgdata = [];
-			doGet('/shopping-mall-medias', { p: this.pagination.currentPage - 1 }).then(res => {
+			doGet('/shopping-malls/5adedc43de3c90022eb25d3b/shopping-mall-medias', { p: this.pagination.currentPage - 1 }).then(res => {
 				console.log(res);
 				this.pagination.total = parseInt(res.headers['x-total-count']);
 				this.imgdata = res.data;

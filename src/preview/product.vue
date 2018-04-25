@@ -1,8 +1,8 @@
 <template>
 	<div>
 
-		<div v-if="block.items.length===0" class="product" :class="[block.template]">
-			<div v-for="i in 3" :key="i" class="item">
+		<div v-if="block.source!=='product'||block.items.length===0" class="product" :class="[block.template]">
+			<div v-for="i in 4" :key="i" class="item">
 				<div class="img" :style="'background-image:url('+imgsrc+')'">
 				</div>
 				<div class="info">
@@ -18,9 +18,8 @@
 				<div class="img" :style="'background-image:url('+_(item,'image.url')+')'">
 				</div>
 				<div class="info">
-					<h5 class="title">{{item.name}}</h5>
+					<h5 class="title">{{_(item,'name.'+editlang)}}</h5>
 					<h6 class="price">￥{{item.price}}</h6>
-
 				</div>
 			</div>
 
@@ -38,7 +37,7 @@ export default {
 	},
 	data() {
 		return {
-			imgsrc: 'https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg',
+			imgsrc: 'https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp',
 		}
 	}
 }
@@ -55,7 +54,7 @@ export default {
     padding: 0 5px;
     box-sizing: border-box;
     .img {
-      flex-basis: 50%;
+      // flex-basis: 50%;
       position: relative;
       height: 0;
       padding-bottom: 100%;
@@ -66,8 +65,18 @@ export default {
         width: 100%;
       }
     }
-    h5 {
-      margin: 3px;
+    .info {
+      font-size: 14px;
+      .title {
+        line-height: 14px;
+        min-height: 14px;
+        max-height: 28px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
     }
     h6 {
       color: red;

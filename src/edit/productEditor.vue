@@ -1,14 +1,14 @@
 <template>
 	<div>
-		<el-form ref="form" class="form" :model="form" label-width="80px">
+		<el-form ref="form" class="form" label-width="80px">
 			<el-form-item label="商品来源">
-				<el-radio-group v-model="form.productFrom">
-					<el-radio label="商品"></el-radio>
-					<el-radio label="商品分组"></el-radio>
+				<el-radio-group v-model="block.source">
+					<el-radio label="product">商品</el-radio>
+					<el-radio label="shoppingMallCategory">商品分组</el-radio>
 				</el-radio-group>
 			</el-form-item>
 
-			<div class="product">
+			<div v-show="block.source==='product'" class="product">
 				<span>选择商品</span>
 				<div class="imgs">
 					<draggable :options="dragOptions" v-model="block.items">
@@ -21,6 +21,22 @@
 					</div>
 				</div>
 			</div>
+			<div v-show="block.source==='shoppingMallCategory'" class="category">
+				<div class="row">
+					商品分组:
+					<span v-show="shoppingMallCategoryId" class="span">
+						{{shoppingMallCategoryId}}
+						<i @click="shoppingMallCategoryDel" class="el-icon-close"></i>
+					</span>
+					<span @click="shoppingMallCategoryGet" style="color:#38f;font-size:12px;cursor:pointer;">{{block.shoppingMallCategory?'修改':'从商品分组中选择'}}</span>
+				</div>
+				<div class="row">
+					显示个数:
+					<input v-model="block.limit" type="text">
+					<span style="color:#aaa;">最多显示50个</span>
+				</div>
+
+			</div>
 
 			<el-form-item label="列表样式">
 				<el-radio-group v-model="block.template">
@@ -31,7 +47,6 @@
 					<el-radio label="list">详细列表</el-radio>
 				</el-radio-group>
 			</el-form-item>
-
 			<!-- <el-form-item label="填充方式">
 				<el-radio-group v-model="block.fillType">
 					<el-radio label="nospace">填充</el-radio>
@@ -40,7 +55,9 @@
 			</el-form-item> -->
 		</el-form>
 		<!--商品选择  -->
-		<productsel :pagination="pagination" @pageChange="pageChange" @productsel="productsel" v-model="dialogVisible" :multi="true" :showData="showData" :gridData="gridData" />
+		<productsel :title="dialogTitle" :pagination="pagination" @pageChange="pageChange" @productsel="productsel" v-model="dialogVisible" :multi="multi" :showData="showData" :gridData="gridData" />
+		<!-- 商品分组选择 -->
+
 	</div>
 </template>
 
@@ -64,42 +81,78 @@ export default {
 				ghostClass: 'ghost-style'
 			},
 			dialogVisible: false,
-			showData: [
+			dialogTitle: '选择商品',
+			multi: true,
+			showData: [],
+			productData: [
 				{ prop: 'image.url', label: 'image', width: 120, type: 'image' },
-				{ prop: 'name', label: 'name', width: 120, type: 'string' },
+				{ prop: 'name.en', label: 'name', width: 120, type: 'string' },
 				{ prop: 'price', label: 'price', width: 120, type: 'string' },
+			],
+			shoppingmallpageData: [
+				{ prop: 'pageTitle.en', label: 'pageTitle', width: 120, type: 'string' },
+				{ prop: 'createdAt', label: 'createdAt', width: 120, type: 'string' },
+				{ prop: 'status', label: 'status', width: 120, type: 'string' },
+			],
+			shoppingmallcategoryData: [
+				{ prop: 'image.url', label: 'image', width: 120, type: 'image' },
+				{ prop: 'name.en', label: 'name', width: 120, type: 'string' },
+				{ prop: 'products.length', label: 'quantity', width: 120, type: 'string' },
 			],
 			gridData: [],
 			pagination: {
 				currentPage: 1,
 				total: 50,
 			},
+			shoppingMallCategoryId: this.block.shoppingMallCategory,
 			del: -1,
-			form: {
-				productFrom: '商品'
-			}
 		}
 	},
 	methods: {
+		shoppingMallCategoryDel() {
+			delete this.block.shoppingMallCategory
+			this.shoppingMallCategoryId = '';
+		},
 		itemDel(i) {
 			this.block.items.splice(i, 1);
 		},
 		productsel(products) {
-			products.forEach(element => {
-				this.block.items.push({
-					image: this.deepGet(element, 'image'),
-					name: element.name,
-					price: element.price,
-				})
-			});
+			switch (this.block.source) {
+				case 'product':
+					products.forEach(element => {
+						this.block.items.push({
+							image: this._(element, 'image'),
+							name: element.name,
+							price: element.price,
+						})
+					});
+					break;
+				case 'shoppingMallCategory':
+					this.categoryname = products[0]['name']['en']
+					this.block.shoppingMallCategory = products[0]['_id'];
+					this.shoppingMallCategoryId = this.block.shoppingMallCategory;
+					break;
+			}
 			this.dialogVisible = false;
 		},
-		onSubmit() {
-			console.log('submit!');
-		},
 		productAdd() {
+			this.multi = true;
+			this.dialogTitle = '选择商品';
 			this.gridData = [];
+			this.showData = this.productData;
 			doGet('/products', { p: this.pagination.currentPage - 1 }).then(res => {
+				console.log(res);
+				this.pagination.total = parseInt(res.headers['x-total-count']);
+				this.gridData = res.data;
+				this.dialogVisible = true;
+			})
+		},
+		shoppingMallCategoryGet() {
+			this.multi = false;
+			this.dialogTitle = '选择分组';
+			this.gridData = [];
+			this.showData = this.shoppingmallcategoryData;
+			doGet('/shopping-malls/' + this.shoppingMallId + '/shopping-mall-categories', { p: this.pagination.currentPage - 1 }).then(res => {
 				console.log(res);
 				this.pagination.total = parseInt(res.headers['x-total-count']);
 				this.gridData = res.data;
@@ -110,9 +163,6 @@ export default {
 			this.pagination.currentPage = val;
 			this.productAdd();
 		},
-		deepGet(value, path) {
-			return (!Array.isArray(path) ? path.replace(/\[/g, '.').replace(/\]/g, '').split('.') : path).reduce((o, k) => (o || {})[k], value) || undefined;
-		}
 	},
 	components: {
 		productsel,
@@ -137,6 +187,45 @@ export default {
     span {
       // width:120px;
       padding-top: 3px;
+    }
+  }
+  .category {
+    min-height: 60px;
+    border: 1px solid #999;
+    padding: 15px 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #fff;
+    .span {
+      // margin-left: 5px;
+      vertical-align: bottom;
+      // max-width: 90px;
+      border-color: rgba(51, 136, 255, 0.3);
+      color: rgb(102, 102, 102);
+      background: rgb(226, 243, 255);
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+      padding: 0 0 0 3px;
+      position: relative;
+      top: 0;
+      bottom: 0;
+      i {
+        cursor: pointer;
+      }
+    }
+    .row {
+      line-height: 16px;
+      height: 16px;
+      input {
+        width: 80px;
+        height: 10px;
+      }
     }
   }
   .imgs {

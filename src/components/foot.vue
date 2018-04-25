@@ -10,8 +10,8 @@
 
 <script>
 export default {
-	methods:{
-		upload(){
+	methods: {
+		upload() {
 			this.$emit('upload');
 		}
 	}
@@ -19,23 +19,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.foot{
-	position: fixed;
-	width:100%;
-	bottom:0;
-	left:0;
-	right: 0;
-	margin:0 auto;
-	z-index: 3000;
-	.row{
-		width:1040px;
-		margin:0 auto;
-		display: flex;
-		justify-content: center;
-		background: #666;
-		padding: 10px;
-	}
-
+.foot {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 1800;
+  .row {
+    width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    background: #666;
+    padding: 10px;
+  }
 }
-
 </style>

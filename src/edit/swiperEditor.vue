@@ -24,11 +24,7 @@
 						<input v-model="item.title" type="text">
 					</div>
 					<div class="row">
-						<label for="">链接</label>
-						<el-select size="small" v-model="selvalue" placeholder="请选择">
-							<el-option label="区域一" value="shanghai"></el-option>
-							<el-option label="区域二" value="beijing"></el-option>
-						</el-select>
+						<linktype :item="item" />
 					</div>
 				</div>
 			</transition-group>
@@ -45,6 +41,7 @@
 import draggable from 'vuedraggable'
 import imgsel from '@/core/imgsel'
 import { doPost, doGet } from '@/api/api'
+import linktype from '@/core/linktype'
 export default {
 	props: {
 		block: {
@@ -99,7 +96,7 @@ export default {
 		},
 		getImg() {
 			this.imgdata = [];
-			doGet('/shopping-mall-medias', { p: this.pagination.currentPage - 1 }).then(res => {
+			doGet('/shopping-malls/5adedc43de3c90022eb25d3b/shopping-mall-medias', { p: this.pagination.currentPage - 1 }).then(res => {
 				console.log(res);
 				this.pagination.total = parseInt(res.headers['x-total-count']);
 				this.imgdata = res.data;
@@ -113,7 +110,8 @@ export default {
 	},
 	components: {
 		imgsel,
-		draggable
+		draggable,
+		linktype
 	}
 }
 </script>

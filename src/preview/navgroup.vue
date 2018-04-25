@@ -5,7 +5,6 @@
 				<div class="img" :style="'background-image:url('+_(item,'image.url')+')'">
 					<img v-if="index===0" :src="_(item,'image.url')" alt="">
 				</div>
-
 			</div>
 		</section>
 		<section v-if="hastext" class="navgroup">
@@ -57,6 +56,8 @@ export default {
     .img {
       width: 100%;
       height: 100%;
+      border: 3px solid #fff;
+      box-sizing: border-box;
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;

@@ -3,7 +3,7 @@
 
 		<el-form ref="form" :model="block" label-width="75px">
 			<el-form-item label="标题">
-				<el-input v-model="block.pageTitle"></el-input>
+				<el-input v-model="block.pageTitle[editlang]"></el-input>
 			</el-form-item>
 			<el-form-item label="页面描述">
 				<el-input v-model="block.pageDescription"></el-input>

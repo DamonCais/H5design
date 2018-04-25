@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 const app = {
     state: {
         language: Cookies.get('language') || 'en',
-        editlang: 'en'
+        editlang: 'en',
+        shoppingMallId: '5adedc43de3c90022eb25d3b'
     },
     mutations: {
         SET_LANGUAGE: (state, language) => {

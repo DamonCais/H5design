@@ -1,9 +1,9 @@
 <template>
 	<div class="contain">
-		<div class="app-preview" :style="'background-color:'+blocks[0].data.color">
+		<div class="app-preview" :style="'background-color:'+blocks[0].color">
 			<!-- 页面标题 -->
 			<header class="header" @click="sel=0">
-				<h1>{{blocks[0].pageTitle}}</h1>
+				<h1>{{blocks[0].pageTitle[editlang]}}</h1>
 			</header>
 			<div class="prelist">
 				<!-- 页面显示 -->
@@ -21,6 +21,7 @@
 				</draggable>
 				<!-- 页面编辑 -->
 				<editor :style="'top:'+editOffset+'px'" ref="editor" class="editor" :block="blocks[sel]" />
+				<div class="clearfix"></div>
 			</div>
 			<!-- 添加按键 -->
 			<div class="btns">
@@ -29,6 +30,7 @@
 				</span>
 			</div>
 		</div>
+		<div class="clearfix"></div>
 		<!-- 弹出按键 -->
 		<el-dialog title="选择组件" :visible.sync="centerDialogVisible" width="500px" center>
 			<div class="btns">
@@ -60,11 +62,13 @@ export default {
 				ghostClass: 'ghost-style'
 			},
 			btns: ['导航栏', '轮播图', '标题', '导航条', '商品', '留空'],
-			blocks: [{				data: {
-					pageTitle: '店铺主页',
+			blocks: [
+				{
+					pageTitle: { zh: '', en: '' },
 					pageDescription: '',
-					color: '#eee'
-				}, type: 'header'			}
+					color: '#eee',
+					type: 'header'
+				}
 			],
 			sel: 0,
 			editOffset: -50
@@ -178,6 +182,7 @@ export default {
         position: absolute;
         left: 104%;
         top: 0;
+        margin-bottom: 100px;
       }
       .pre {
         position: relative;
@@ -241,5 +246,8 @@ export default {
       text-align: center;
     }
   }
+}
+.clearfix {
+  clear: both;
 }
 </style>

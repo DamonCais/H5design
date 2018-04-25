@@ -7,7 +7,7 @@ export function createObjByBtn(btn) {
                 template: 'image-text',
                 items: [{
                         image: {
-                            url: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg"
+                            url: "https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp"
                         },
                         title: {
                             zh: "文本标题",
@@ -16,7 +16,7 @@ export function createObjByBtn(btn) {
                     },
                     {
                         image: {
-                            url: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg"
+                            url: "https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp"
                         },
                         title: {
                             zh: "文本标题",
@@ -25,7 +25,7 @@ export function createObjByBtn(btn) {
                     },
                     {
                         image: {
-                            url: "https://s3.cn-north-1.amazonaws.com.cn/guzzu-cn-assets-1/images/06c55e8e-4e21-4a63-940f-9f1f5332538e-medium.jpg"
+                            url: "https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp"
                         },
                         title: {
                             zh: "文本标题",
@@ -42,7 +42,7 @@ export function createObjByBtn(btn) {
                 template: "swiper",
                 items: [{
                     image: {
-                        url: 'http://cdn.iciba.com/news/word/big_20180417b.jpg'
+                        url: 'https://img.yzcdn.cn/public_files/2018/01/30/585dae8447d80013ef9344adc973c6ee.png?imageView2/2/w/520/h/0/q/75/format/webp'
                     },
                     title: ''
                 }, ]

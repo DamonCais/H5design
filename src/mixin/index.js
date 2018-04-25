@@ -13,6 +13,6 @@ Vue.mixin({
         // }
     },
     computed: {
-        ...mapGetters(['language', 'editlang'])
+        ...mapGetters(['language', 'editlang', 'shoppingMallId'])
     },
 });
