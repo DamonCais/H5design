@@ -1,20 +1,21 @@
 <template>
 	<div>
 		<el-form ref="form" class="form" :model="form" label-width="80px">
-			<el-form-item label="标题">
+			<el-form-item :label="$t('TITLE_TITLE')">
 				<el-input v-model="block.items[0].title[editlang]"></el-input>
 			</el-form-item>
-			<el-form-item label="子标题">
+			<el-form-item :label="$t('TITLE_SUBTITLE')">
 				<el-input v-model="block.items[0].subtitle[editlang]"></el-input>
 			</el-form-item>
-			<!-- <el-form-item label="显示箭头">
-				<el-switch v-model="islink"></el-switch>
-			</el-form-item> -->
+			<div class="row">
+				<linktype :item="block.items[0]" />
+			</div>
 		</el-form>
 	</div>
 </template>
 
 <script>
+import linktype from '@/core/linktype'
 export default {
 	props: {
 		block: {
@@ -39,6 +40,9 @@ export default {
 		islink() {
 			return this.block.items[0].linkType !== undefined;
 		}
+	},
+	components: {
+		linktype,
 	}
 }
 </script>
@@ -48,5 +52,10 @@ export default {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  .row {
+    padding: 0 40px;
+    font-size: 14px;
+    color: #666;
+  }
 }
 </style>

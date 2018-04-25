@@ -25,8 +25,11 @@
 			</div>
 			<!-- 添加按键 -->
 			<div class="btns">
-				<span v-for="(btn,index) in btns" :key="index">
-					<el-button size="mini" type="primary" @click="edit(btn)">{{btn}}</el-button>
+				<span class="mybtn" v-for="(btn,index) in btns" :key="index">
+					<span @click="edit(btn)">
+						{{$t(btn)}}
+					</span>
+					<!-- <el-button size="mini" type="primary" @click="edit(btn)">{{btn}}</el-button> -->
 				</span>
 			</div>
 		</div>
@@ -34,8 +37,8 @@
 		<!-- 弹出按键 -->
 		<el-dialog title="选择组件" :visible.sync="centerDialogVisible" width="500px" center>
 			<div class="btns">
-				<span v-for="(btn,index) in btns" :key="index">
-					<el-button size="mini" type="primary" @click="selbtn(btn)">{{btn}}</el-button>
+				<span class="mybtn" v-for="(btn,index) in btns" :key="index">
+					<el-button size="mini" type="primary" @click="selbtn(btn)">{{$t(btn)}}</el-button>
 				</span>
 			</div>
 		</el-dialog>
@@ -45,10 +48,12 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 import preview from "./components/preview"
 import draggable from 'vuedraggable'
 import editor from './components/editor'
-import { createObjByBtn } from './utils/btn'
+import { createObjByBtn, blockBeauty } from './utils/util'
+import { doPost, doGet, doPatch } from '@/api/api'
 import foot from './components/foot'
 export default {
 	data() {
@@ -61,12 +66,13 @@ export default {
 				group: 'sortlist',
 				ghostClass: 'ghost-style'
 			},
-			btns: ['导航栏', '轮播图', '标题', '导航条', '商品', '留空'],
+			btns: ['BTN_NAVGROUP', 'BTN_BANNER', 'BTN_TITLE', 'BTN_PRODUCTGROUP', 'BTN_SPACER'],
+			// btns: ['导航栏', '轮播图', '标题', '商品', '留空'],
 			blocks: [
 				{
 					pageTitle: { zh: '', en: '' },
-					pageDescription: '',
-					color: '#eee',
+					pageDescription: { zh: '', en: '' },
+					// color: '#eee',
 					type: 'header'
 				}
 			],
@@ -76,11 +82,22 @@ export default {
 	},
 	methods: {
 		upload() {
-			console.log(this.blocks);
+			let obj = blockBeauty(this.blocks);
+			obj.shoppingMall = this.shoppingMallId
+			if (obj.pageTitle.en === '') {
+				Message.error('页面标题不能为空');
+				return;
+			}
+
+			doPatch('/shopping-malls/' + this.shoppingMallId + '/shopping-mall-pages/5ae030d37f07e42c207a18f5', obj).then(res => {
+				console.log(res);
+			})
 		},
 		selbtn(btn) {
 			this.centerDialogVisible = false;
+			console.log('btn' + btn);
 			let obj = createObjByBtn(btn);
+			console.log(obj);
 			switch (this.btnType) {
 				case 'edit':
 					this.blocks.push(obj);
@@ -232,14 +249,28 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
-  span {
+  font-size: 14px;
+  justify-content: flex-start;
+  .mybtn {
     cursor: pointer;
     box-sizing: border-box;
     width: 25%;
-    text-align: center;
-    padding: 5px;
-    line-height: 20px;
+    padding: 0 2px;
+    height: 30px;
     margin-bottom: 5px;
+
+    span {
+      line-height: 30px;
+      background: #38f;
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      display: block;
+      text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
     button {
       width: 100%;
       height: 100%;

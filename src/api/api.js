@@ -1,19 +1,27 @@
 import request from '@/utils/request';
 
 export function doPost(url, params) {
-  return request({
-    url: url,
-    method: 'post',
-    data: params
-  });
+    return request({
+        url: url,
+        method: 'post',
+        data: params
+    });
 }
 
-export function doGet(url,params) {
-	let href = getFullUrl(url,params);
-  return request({
-    url: href,
-    method: 'get',
-  });
+export function doPatch(url, params) {
+    return request({
+        url: url,
+        method: 'patch',
+        data: params
+    });
+}
+
+export function doGet(url, params) {
+    let href = getFullUrl(url, params);
+    return request({
+        url: href,
+        method: 'get',
+    });
 }
 
 function getFullUrl(url, params) {
@@ -21,6 +29,6 @@ function getFullUrl(url, params) {
     for (let p in params) {
         query += `&${p}=${params[p]}`
     }
-    url +='?'+ query.substring(1);
+    url += '?' + query.substring(1);
     return url;
 }

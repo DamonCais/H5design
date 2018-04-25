@@ -1,20 +1,20 @@
 <template>
 	<div class="linktype">
-		<label for="">链接</label>
+		<label for="">{{$t('LINKTYPE_LINK_TYPE')}}</label>
 		<span v-show="linkType" class="span">
 			{{linkType|strLenFilter}}
 			<i @click="linkDel" class="el-icon-close"></i>
 		</span>
-		<el-dropdown @command="handleCommand">
-			<span class="el-dropdown-link">
-				{{item.linkType?'修改':'选择跳转到的页面'}}
+		<el-dropdown trigger="click" @command="handleCommand">
+			<span style="cursor:pointer;" class="el-dropdown-link">
+				{{item.linkType?$t('LINKTYPE_CHANGE'):$t('LINKTYPE_LINK_SELECT')}}
 				<i class="el-icon-arrow-down el-icon--right"></i>
 			</span>
 			<el-dropdown-menu slot="dropdown">
-				<el-dropdown-item command="product">商品</el-dropdown-item>
-				<el-dropdown-item command="storeTopPage">店铺</el-dropdown-item>
-				<el-dropdown-item command="shoppingMallCategory">商品分类</el-dropdown-item>
-				<el-dropdown-item command="category">店铺商品分类</el-dropdown-item>
+				<el-dropdown-item command="product">{{$t('LINKTYPE_PRODUCT')}}</el-dropdown-item>
+				<el-dropdown-item command="store">{{$t('LINKTYPE_STORE')}}</el-dropdown-item>
+				<el-dropdown-item command="shoppingMallCategory">{{$t('LINKTYPE_SHOPPING_MALL_CATEGORY')}}</el-dropdown-item>
+				<el-dropdown-item command="category">{{$t('LINKTYPE_CATEGORY')}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
 		<!-- <productsel :pagination="pagination" @pageChange="pageChange" @productsel="productsel" v-model="productDialog" :multi="false" :showData="showData" :gridData="gridData" /> -->
@@ -80,7 +80,7 @@ export default {
 			}
 			switch (command) {
 				case 'product': this.productsGet(); break;
-				case 'storeTopPage': this.storeTopPageGet(); break;
+				case 'store': this.storeTopPageGet(); break;
 				case 'shoppingMallCategory': this.shoppingMallCategoryGet(); break;
 				// case 'category': this.categoryLink(); break;
 			}
@@ -146,6 +146,9 @@ export default {
   width: 100%;
   min-height: 20px;
   line-height: 20px;
+  label {
+    margin-right: 5px;
+  }
   .span {
     margin-left: 5px;
     vertical-align: bottom;

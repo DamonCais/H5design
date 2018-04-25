@@ -2,7 +2,7 @@
 	<div class="title">
 		<h4>{{block.items[0].title[editlang]}}</h4>
 		<h5>{{block.items[0].subtitle[editlang]}}</h5>
-		<span v-show="block.items[0].linkType" class="link">
+		<span class="link">
 			<i class="el-icon-arrow-right"></i>
 		</span>
 	</div>
@@ -14,6 +14,8 @@ export default {
 		block: {
 			type: Object,
 		},
+	},
+	computed: {
 	},
 }
 </script>

@@ -1,9 +1,13 @@
 <template>
 	<div class="foot">
 		<el-row class="row">
-			<el-button @click="upload" type="primary">上架</el-button>
-			<el-button>保存成草稿</el-button>
-			<el-button>预览</el-button>
+			<el-button @click="upload" type="primary">{{$t('FOOTER_UPLOAD')}}</el-button>
+			<el-button>{{$t('FOOTER_SAVE_AS_DRAFT')}}</el-button>
+			<el-button>{{$t('FOOTER_PREVIEW')}}</el-button>
+			<h6>
+				<span :class="{'active':language==='en'}" @click="setlang('en')">EN</span>
+				<span :class="{'active':language==='zh'}" @click="setlang('zh')">中</span>
+			</h6>
 		</el-row>
 	</div>
 </template>
@@ -13,6 +17,10 @@ export default {
 	methods: {
 		upload() {
 			this.$emit('upload');
+		},
+		setlang(lang) {
+			this.$i18n.locale = lang;
+			this.$store.dispatch('setLanguage', lang)
 		}
 	}
 }
@@ -34,6 +42,26 @@ export default {
     justify-content: center;
     background: #666;
     padding: 10px;
+    position: relative;
+    h6 {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: flex;
+      border: 1px solid red;
+      justify-content: space-around;
+      text-align: center;
+      background: #fff;
+      span {
+        display: block;
+        padding: 5px;
+        width: 30px;
+        cursor: pointer;
+      }
+      .active {
+        background: #3f8;
+      }
+    }
   }
 }
 </style>

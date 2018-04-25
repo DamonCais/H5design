@@ -1,15 +1,15 @@
 <template>
 	<div>
 		<el-form ref="form" class="form" label-width="80px">
-			<el-form-item label="商品来源">
+			<el-form-item :label="$t('PRODUCT_GROUP_SOURCE')">
 				<el-radio-group v-model="block.source">
-					<el-radio label="product">商品</el-radio>
-					<el-radio label="shoppingMallCategory">商品分组</el-radio>
+					<el-radio label="product">{{$t('PRODUCT_GROUP_PRODUCT')}}</el-radio>
+					<el-radio label="shoppingMallCategory">{{$t('PRODUCT_GROUP_SHOPPING_MALL_CATEGORY')}}</el-radio>
 				</el-radio-group>
 			</el-form-item>
 
 			<div v-show="block.source==='product'" class="product">
-				<span>选择商品</span>
+				<span>{{$t('PRODUCT_GROUP_PRODUCT_SELECT')}}</span>
 				<div class="imgs">
 					<draggable :options="dragOptions" v-model="block.items">
 						<div class="img" v-for="(item,i) in block.items" :key="i" :style="'background-image:url('+_(item,'image.url')+')'" @mouseover="del=i" @mouseout="del=-1">
@@ -23,7 +23,7 @@
 			</div>
 			<div v-show="block.source==='shoppingMallCategory'" class="category">
 				<div class="row">
-					商品分组:
+					{{$t('PRODUCT_GROUP_SHOPPING_MALL_CATEGORY')}}:
 					<span v-show="shoppingMallCategoryId" class="span">
 						{{shoppingMallCategoryId}}
 						<i @click="shoppingMallCategoryDel" class="el-icon-close"></i>
@@ -31,20 +31,20 @@
 					<span @click="shoppingMallCategoryGet" style="color:#38f;font-size:12px;cursor:pointer;">{{block.shoppingMallCategory?'修改':'从商品分组中选择'}}</span>
 				</div>
 				<div class="row">
-					显示个数:
+					{{$t('PRODUCT_GROUP_LIMIT')}}:
 					<input v-model="block.limit" type="text">
-					<span style="color:#aaa;">最多显示50个</span>
+					<span style="color:#aaa;">{{$t('PRODUCT_GROUP_LESS_THAN')}}50</span>
 				</div>
 
 			</div>
 
-			<el-form-item label="列表样式">
+			<el-form-item :label="$t('PRODUCT_GROUP_TEMPLATE')">
 				<el-radio-group v-model="block.template">
-					<el-radio label="single">大图</el-radio>
-					<el-radio label="double">小图</el-radio>
-					<el-radio label="triple">一行三个</el-radio>
-					<el-radio label="onebig">一大两小</el-radio>
-					<el-radio label="list">详细列表</el-radio>
+					<el-radio label="single">{{$t('PRODUCT_GROUP_SINGLE')}}</el-radio>
+					<el-radio label="double">{{$t('PRODUCT_GROUP_DOUBLE')}}</el-radio>
+					<el-radio label="triple">{{$t('PRODUCT_GROUP_TRIPLE')}}</el-radio>
+					<el-radio label="onebig">{{$t('PRODUCT_GROUP_ONEBIG')}}</el-radio>
+					<el-radio label="list">{{$t('PRODUCT_GROUP_LIST')}}</el-radio>
 				</el-radio-group>
 			</el-form-item>
 			<!-- <el-form-item label="填充方式">

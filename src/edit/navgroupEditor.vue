@@ -1,11 +1,11 @@
 <template>
 	<div class="navgrounp">
 		<el-form ref="form" class="form" label-width="80px">
-			<el-form-item label="填充方式">
+			<el-form-item :label="$t('NAVGROUP_FILLTYPE')">
 				<el-radio-group v-model="block.template">
-					<el-radio label="image-text">默认</el-radio>
-					<el-radio label="image-only">仅图片</el-radio>
-					<el-radio label="text-only">仅文字</el-radio>
+					<el-radio label="image-text">{{$t('NAVGROUP_IMAGE_TEXT')}}</el-radio>
+					<el-radio label="image-only">{{$t('NAVGROUP_IMAGE_ONLY')}}</el-radio>
+					<el-radio label="text-only">{{$t('NAVGROUP_TEXT_ONLY')}}</el-radio>
 				</el-radio-group>
 			</el-form-item>
 		</el-form>
@@ -16,12 +16,12 @@
 					<div class="addimg" v-show="block.template!=='text-only'">
 						<div class="icon" @click="imgChange(i)" :style="'background-image:url('+_(item,'image.url')+')'">
 							<i v-if="!item.image.url" class="el-icon-plus"></i>
-							<h6 v-if="!item.image.url">添加图片</h6>
-							<h5 v-if="item.image.url">更换图片</h5>
+							<h6 v-if="!item.image.url">{{$t('NAVGROUP_IMAGE_ADD')}}</h6>
+							<h5 v-if="item.image.url">{{$t('NAVGROUP_IMAGE_CHANGE')}}</h5>
 						</div>
 					</div>
 					<div class="row" v-show="block.template!=='image-only'">
-						<label for="">标题</label>
+						<label for="">{{$t('NAVGROUP_TITLE')}}</label>
 						<input v-model="item.title[editlang]" type="text">
 					</div>
 					<div class="row">
@@ -32,7 +32,7 @@
 		</draggable>
 		<div @click="itemAdd" class="additem">
 			<i class="el-icon-plus"></i>
-			<h6>添加一个图文导航</h6>
+			<h6>{{$t('NAVGROUP_ADD_A_NAV')}}</h6>
 		</div>
 		<imgsel :pagination="pagination" @pageChange="pageChange" @imgsel="imgsel" :imgdata="imgdata" v-model="dialogVisible" />
 	</div>

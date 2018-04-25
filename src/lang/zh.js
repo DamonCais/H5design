@@ -1,0 +1,61 @@
+export default {
+    BTN_NAVGROUP: '导航栏',
+    BTN_BANNER: '横幅',
+    BTN_PRODUCTGROUP: '商品列表',
+    BTN_TITLE: '标题',
+    BTN_SPACER: '留白',
+
+    HEADER_PAGE_TITLE: '页面标题',
+    HEADER_PAGE_DESCRIPTION: '页面描述',
+
+    FOOTER_UPLOAD: '上传',
+    FOOTER_SAVE_AS_DRAFT: '保存为草稿',
+    FOOTER_PREVIEW: '预览',
+
+    NAVGROUP_FILLTYPE: '填充方式',
+    NAVGROUP_IMAGE_TEXT: '图文',
+    NAVGROUP_IMAGE_ONLY: '仅图片',
+    NAVGROUP_TEXT_ONLY: '仅文字',
+    NAVGROUP_TITLE: '标题',
+    NAVGROUP_LINK_TYPE: '链接',
+    NAVGROUP_LINK_SELECT: '选择跳转到的页面',
+    NAVGROUP_IMAGE_CHANGE: '更换图片',
+    NAVGROUP_IMAGE_ADD: '添加图片',
+    NAVGROUP_ADD_A_NAV: '添加一个图文导航',
+    NAVGROUP_CHANGE: '修改',
+
+    LINKTYPE_LINK_TYPE: '链接',
+    LINKTYPE_LINK_SELECT: '选择跳转到的页面',
+    LINKTYPE_CHANGE: '修改',
+    LINKTYPE_PRODUCT: '商品',
+    LINKTYPE_STORE: '店铺',
+    LINKTYPE_SHOPPING_MALL_CATEGORY: '店铺商品分类',
+    LINKTYPE_CATEGORY: '商品分类',
+
+
+    BANNER_LINK_TYPE: '链接',
+    BANNER_LINK_SELECT: '选择跳转到的页面',
+    BANNER_IMAGE_CHANGE: '更换图片',
+    BANNER_IMAGE_ADD: '添加图片',
+    BANNER_ADD_A_NAV: '添加一个图文导航',
+
+    TITLE_TITLE: '标题',
+    TITLE_SUBTITLE: '子标题',
+
+    PRODUCT_GROUP_SOURCE: '商品来源',
+    PRODUCT_GROUP_PRODUCT: '商品',
+    PRODUCT_GROUP_SHOPPING_MALL_CATEGORY: '商品分组',
+    PRODUCT_GROUP_SELECT_FROM_SHOPPING_MALL_CATEGORY: '从商品分组中选择',
+    PRODUCT_GROUP_LIMIT: '显示个数',
+    PRODUCT_GROUP_LESS_THAN: '最多显示',
+    PRODUCT_GROUP_PRODUCT_SELECT: '选择商品',
+    PRODUCT_GROUP_TEMPLATE: '列表样式',
+    PRODUCT_GROUP_SINGLE: '大图',
+    PRODUCT_GROUP_DOUBLE: '小图',
+    PRODUCT_GROUP_TRIPLE: '一行三个',
+    PRODUCT_GROUP_ONEBIG: '一大两小',
+    PRODUCT_GROUP_LIST: '详细列表',
+
+    SPACER_HEIGHT: '高度',
+
+}

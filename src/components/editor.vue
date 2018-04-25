@@ -1,6 +1,6 @@
 <template>
 	<div v-if="title!==''" class="editor-page">
-		<h4>{{title}}</h4>
+		<h4>{{$t(title)}}</h4>
 		<h6>
 			<span :class="{'active':editlang==='en'}" @click="setlang('en')">EN</span>
 			<span :class="{'active':editlang==='zh'}" @click="setlang('zh')">中</span>
@@ -39,13 +39,13 @@ export default {
 		title() {
 			let title = '';
 			switch (this.block.type) {
-				case 'cell': title = '导航条'; break;
-				case 'productgroup': title = '商品列表'; break;
-				case 'spacer': title = '辅助留空'; break;
-				case 'banner': title = '轮播图'; break;
-				case 'title': title = '标题'; break;
-				case 'navgroup': title = '导航列表'; break;
-				case 'header': title = '主页标题'; break;
+				// case 'cell': title = '导航条'; break;
+				case 'productgroup': title = 'productgroup'; break;
+				case 'spacer': title = 'spacer'; break;
+				case 'banner': title = 'banner'; break;
+				case 'title': title = 'title'; break;
+				case 'navgroup': title = 'navgroup'; break;
+				case 'header': title = 'header'; break;
 
 			}
 			return title;

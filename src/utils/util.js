@@ -1,7 +1,16 @@
+export function blockBeauty(blocks) {
+    let obj = {
+        pageTitle: blocks[0].pageTitle,
+        pageDescription: blocks[0].pageDescription,
+        status: 'active',
+        blocks: blocks.slice(1),
+    }
+    return obj;
+}
 export function createObjByBtn(btn) {
     let obj = {};
     switch (btn) {
-        case '导航栏':
+        case 'BTN_NAVGROUP':
             obj = {
                 type: 'navgroup',
                 template: 'image-text',
@@ -36,7 +45,7 @@ export function createObjByBtn(btn) {
 
             };
             break;
-        case '轮播图':
+        case 'BTN_BANNER':
             obj = {
                 type: 'banner',
                 template: "swiper",
@@ -49,7 +58,7 @@ export function createObjByBtn(btn) {
 
             };
             break;
-        case '标题':
+        case 'BTN_TITLE':
             obj = {
                 type: 'title',
                 template: 'left',
@@ -63,14 +72,14 @@ export function createObjByBtn(btn) {
                         zh: "文本副标题",
                         en: "English Subtitle"
                     },
-                    linkType: "product",
-                    linkId: "...object-id..."
+                    // linkType: "product",
+                    // linkId: "...object-id..."
                 }]
 
 
             };
             break;
-        case '导航条':
+        case 'cell':
             obj = {
                 type: 'cell',
                 data: {
@@ -81,7 +90,7 @@ export function createObjByBtn(btn) {
                 }
             };
             break;
-        case '商品':
+        case 'BTN_PRODUCTGROUP':
             obj = {
                 type: 'productgroup',
                 template: 'double',
@@ -89,7 +98,7 @@ export function createObjByBtn(btn) {
                 items: []
             };
             break;
-        case '留空':
+        case 'BTN_SPACER':
             obj = {
                 type: 'spacer',
 
